@@ -9,39 +9,32 @@ const App = () => {
   const [mountain, setMountain] = useState('')
   const [bird, setBird] = useState('')
   const [food, setFood] = useState('')
-  // const [presentation, setPresentation] = ()
+
+
   
   const handleSearch = (e) => {
     setSearch(e.target.value)
   }
   
   const handleClickMountain = () => {
-    setMountain('Mountain')
+    setMountain(mountain ==='Mountain'? '' : 'Mountain');
+    
   }
   
   const handleClickBeach = () => {
-    setBeach('Beach')
+    setBeach(beach === 'Beach' ? '' : 'Beach')
   }
   
   const handleClickBird = () => {
-    setBird('Bird')
+    setBird(bird === 'Bird' ? '' : 'Bird')
   }
   
   const handleClickFood = () => {
-    setFood('Food')
+    setFood(food === 'Food' ? '' : 'Food')
   }
 
-  const handleClickReset = () => {
-    setBeach('');
-    setBird('');
-    setFood('');
-    setMountain('');
 
-  // const handleClickPresentation = () => {
-
-  // }
-    
-  }
+  
   return (
 
 
@@ -57,7 +50,6 @@ const App = () => {
             <button type="submit" onClick={handleClickBeach}>Beach</button>
             <button type="submit" onClick={handleClickBird}>Bird</button>
             <button type="submit" onClick={handleClickFood}>Food</button>
-            <button className='reset' type="reset" onClick={handleClickReset}>Reset</button>
           </div>
         </div>
     </div>
@@ -69,11 +61,10 @@ const App = () => {
         {Data.filter((elem) => 
                 search === '' || elem.name.toLocaleLowerCase()
                 .includes(search.toLocaleLowerCase()))
-              .filter((elem) => mountain === '' || elem.category === mountain)
-              .filter((elem) => beach === '' || elem.category === beach)
-              .filter((elem) => bird === '' || elem.category === bird)
-              .filter((elem) => food === '' || elem.category === food)
-        
+              .filter((elem) => mountain === '' || (elem.category === mountain || elem.category === beach || elem.category === bird || elem.category === food))
+              .filter((elem) => beach === ''  || (elem.category === beach || elem.category === mountain || elem.category === bird || elem.category === food))
+              .filter((elem) => bird === '' || (elem.category === bird || elem.category === mountain || elem.category === beach ||elem.category === food))
+              .filter((elem) => food === '' || (elem.category === food || elem.category === mountain || elem.category === beach || elem.category === bird))
         .map((item) => 
           <Card key={item.id} id={item.id} category={item.category} picture={item.picture} name={item.name}  />
         )
